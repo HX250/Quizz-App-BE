@@ -1,12 +1,11 @@
-package com.example.devOpsDemo.controller;
+package main.java.com.example.devOpsDemo.controller;
 
-
-import com.example.devOpsDemo.dto.UserDto;
-import com.example.devOpsDemo.dto.request.LoginRequest;
 import com.example.devOpsDemo.dto.request.RegisterRequest;
-import com.example.devOpsDemo.dto.response.LoginResponse;
-import com.example.devOpsDemo.entity.User;
-import com.example.devOpsDemo.service.AuthService;
+import main.java.com.example.devOpsDemo.dto.UserDto;
+import main.java.com.example.devOpsDemo.dto.request.LoginRequest;
+import main.java.com.example.devOpsDemo.dto.response.LoginResponse;
+import main.java.com.example.devOpsDemo.entity.User;
+import main.java.com.example.devOpsDemo.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,19 +21,16 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
-        UserDto registeredUser = authService.signup(request);
-
-        return ResponseEntity.ok("hello");
+        authService.signup(request);
+        return ResponseEntity.ok("{}");
     }
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginRequest request) {
-       // User authenticatedUser = authService.authenticate(request);
-
-        LoginResponse loginResponse = new LoginResponse("asdasd");
-
+        String token = authService.authenticate(request);
+        LoginResponse loginResponse = new LoginResponse(token);
         return ResponseEntity.ok(loginResponse);
     }
 }

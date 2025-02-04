@@ -1,4 +1,4 @@
-package com.example.devOpsDemo.service;
+package main.java.com.example.devOpsDemo.service;
 
 public class UserService {
 }

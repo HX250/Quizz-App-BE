@@ -1,4 +1,4 @@
-package com.example.devOpsDemo.dto;
+package main.java.com.example.devOpsDemo.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

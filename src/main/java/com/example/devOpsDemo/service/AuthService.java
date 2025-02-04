@@ -1,10 +1,14 @@
-package com.example.devOpsDemo.service;
+package main.java.com.example.devOpsDemo.service;
 
-import com.example.devOpsDemo.dto.UserDto;
 import com.example.devOpsDemo.dto.request.RegisterRequest;
-import com.example.devOpsDemo.entity.User;
-import com.example.devOpsDemo.repository.UserRepository;
+import main.java.com.example.devOpsDemo.dto.request.LoginRequest;
+import main.java.com.example.devOpsDemo.entity.User;
+import main.java.com.example.devOpsDemo.exception.CustomException;
+import main.java.com.example.devOpsDemo.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
+import java.util.Random;
 
 @Service
 public class AuthService {
@@ -15,10 +19,14 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public UserDto signup(RegisterRequest request) {
-       // if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-        //    throw new EmailAlreadyTakenException("The email address is already taken.");
-       // }
+    public void signup(RegisterRequest request) {
+       if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new CustomException("The email address is already taken.");
+        }
+
+        if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+            throw new CustomException("This username is already taken.");
+        }
 
         User user = new User();
         user.setUsername(request.getUsername());
@@ -26,7 +34,24 @@ public class AuthService {
         user.setPassword(request.getPassword());
 
         userRepository.save(user);
+    }
 
-        return new UserDto(user.getEmail(), user.getUsername());
+    public String authenticate(LoginRequest request) {
+        User user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new CustomException("User not found"));
+
+        if (!Objects.equals(request.getPassword(), user.getPassword())) {
+            throw new CustomException("Invalid credentials");
+        }
+
+        return generateToken();
+    }
+
+
+    public String generateToken() {
+        Random rnd = new Random();
+        int token = 100000 + rnd.nextInt(900000);
+        System.out.println(token);
+        return String.valueOf(token);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.devOpsDemo.repository;
+package main.java.com.example.devOpsDemo.repository;
 
 public interface QuizRepository {
 }

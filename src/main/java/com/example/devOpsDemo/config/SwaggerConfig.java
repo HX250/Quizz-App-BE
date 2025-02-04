@@ -1,4 +1,4 @@
-package com.example.devOpsDemo.config;
+package main.java.com.example.devOpsDemo.config;
 
 public class SwaggerConfig {
 }

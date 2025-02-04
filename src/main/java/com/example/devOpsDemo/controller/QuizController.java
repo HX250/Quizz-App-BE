@@ -1,4 +1,4 @@
-package com.example.devOpsDemo.controller;
+package main.java.com.example.devOpsDemo.controller;
 
 public class QuizController {
 }
