@@ -1,10 +1,9 @@
 package main.java.com.example.devOpsDemo.controller;
 
-import com.example.devOpsDemo.dto.request.RegisterRequest;
-import main.java.com.example.devOpsDemo.dto.UserDto;
+
 import main.java.com.example.devOpsDemo.dto.request.LoginRequest;
+import main.java.com.example.devOpsDemo.dto.request.RegisterRequest;
 import main.java.com.example.devOpsDemo.dto.response.LoginResponse;
-import main.java.com.example.devOpsDemo.entity.User;
 import main.java.com.example.devOpsDemo.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,13 +1,9 @@
 package main.java.com.example.devOpsDemo.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 
 @Entity
-@Getter
-@Setter
 @Table(name = "quiz_categories")
 public class QuizCategory {
     @EmbeddedId
@@ -22,4 +18,14 @@ public class QuizCategory {
     @MapsId("categoryId")
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public Quiz getQuiz() { return quiz; }
+    public void setQuiz(Quiz quiz) { this.quiz = quiz; }
+
+    public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
+
+    public void setId(QuizCategoryId id) {
+        this.id = id;
+    }
 }

@@ -1,7 +1,8 @@
 package main.java.com.example.devOpsDemo.service;
 
-import com.example.devOpsDemo.dto.request.RegisterRequest;
+
 import main.java.com.example.devOpsDemo.dto.request.LoginRequest;
+import main.java.com.example.devOpsDemo.dto.request.RegisterRequest;
 import main.java.com.example.devOpsDemo.entity.User;
 import main.java.com.example.devOpsDemo.exception.CustomException;
 import main.java.com.example.devOpsDemo.repository.UserRepository;

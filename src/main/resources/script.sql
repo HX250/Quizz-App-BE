@@ -41,7 +41,7 @@ CREATE TABLE questions (
                            question_id INT AUTO_INCREMENT PRIMARY KEY,
                            quiz_id INT NOT NULL,
                            question_text TEXT NOT NULL,
-                           isCorrect BOOLEAN,
+                           is_correct BOOLEAN,
                            FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
 );
 
@@ -76,10 +76,10 @@ INSERT INTO quiz_categories (quiz_id, category_id) VALUES
                                                        (2, 2),
                                                        (3, 3);
 
-INSERT INTO questions (quiz_id, question_text, isCorrect) VALUES
-                                                              (1, 'What is the capital of France?', TRUE),
+INSERT INTO questions (quiz_id, question_text, is_correct) VALUES
+                                                              (1, 'Is Paris the capital of France?', TRUE),
                                                               (1, 'Is the Earth flat?', FALSE),
-                                                              (2, 'What is 2 + 2?', TRUE),
+                                                              (2, 'Is 2 + 2 = 4?', TRUE),
                                                               (3, 'Does water boil at 100 degrees Celsius?', TRUE);
 
 INSERT INTO quiz_completions (user_id, quiz_id, score) VALUES

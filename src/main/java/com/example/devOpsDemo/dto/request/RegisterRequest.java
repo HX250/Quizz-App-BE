@@ -1,9 +1,7 @@
-package com.example.devOpsDemo.dto.request;
+package main.java.com.example.devOpsDemo.dto.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@AllArgsConstructor
+
 public class RegisterRequest {
     private String username;
     private String email;
