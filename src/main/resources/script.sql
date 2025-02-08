@@ -45,16 +45,6 @@ CREATE TABLE questions (
                            FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
 );
 
-CREATE TABLE quiz_completions (
-                                  completion_id INT AUTO_INCREMENT PRIMARY KEY,
-                                  user_id INT NOT NULL,
-                                  quiz_id INT NOT NULL,
-                                  score INT,
-                                  completed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                                  FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
-                                  FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE
-);
-
 INSERT INTO users (username, email, password) VALUES
                                                   ('john_doe', 'john@example.com', 'password123'),
                                                   ('jane_smith', 'jane@example.com', 'securepass'),
@@ -81,8 +71,3 @@ INSERT INTO questions (quiz_id, question_text, is_correct) VALUES
                                                               (1, 'Is the Earth flat?', FALSE),
                                                               (2, 'Is 2 + 2 = 4?', TRUE),
                                                               (3, 'Does water boil at 100 degrees Celsius?', TRUE);
-
-INSERT INTO quiz_completions (user_id, quiz_id, score) VALUES
-                                                           (1, 1, 80),
-                                                           (2, 2, 90),
-                                                           (3, 3, 85);

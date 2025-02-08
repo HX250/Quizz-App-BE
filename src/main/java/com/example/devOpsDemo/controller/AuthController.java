@@ -1,6 +1,8 @@
 package main.java.com.example.devOpsDemo.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import main.java.com.example.devOpsDemo.dto.request.LoginRequest;
 import main.java.com.example.devOpsDemo.dto.request.RegisterRequest;
 import main.java.com.example.devOpsDemo.dto.response.LoginResponse;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Users", description = "User management APIs")
 public class AuthController {
     private final AuthService authService;
 
@@ -20,6 +23,7 @@ public class AuthController {
         this.authService = authService;
     }
 
+    @Operation(summary = "Get all users", description = "Retrieves a list of all users")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
         authService.signup(request);

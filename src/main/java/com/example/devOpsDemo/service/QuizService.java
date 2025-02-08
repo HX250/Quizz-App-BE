@@ -3,6 +3,7 @@ package main.java.com.example.devOpsDemo.service;
 import jakarta.transaction.Transactional;
 import main.java.com.example.devOpsDemo.dto.*;
 import main.java.com.example.devOpsDemo.entity.*;
+import main.java.com.example.devOpsDemo.exception.CustomException;
 import main.java.com.example.devOpsDemo.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
@@ -56,6 +57,10 @@ public class QuizService {
     }
 
     public CreateQuizDTO createQuiz(CreateQuizDTO createQuizDTO) {
+        if(createQuizDTO.getUserId() == null){
+            throw new CustomException("Login is required, please");
+        }
+
         User user = userRepository.findById(createQuizDTO.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
@@ -66,6 +71,7 @@ public class QuizService {
         quiz.setUser(user);
 
         quiz = quizRepository.save(quiz);
+
 
         Quiz finalQuiz = quiz;
         List<Question> questions = createQuizDTO.getQuestions().stream().map(qDTO -> {
@@ -116,5 +122,21 @@ public class QuizService {
         questionRepository.deleteAllByQuiz(quiz);
 
         quizRepository.delete(quiz);
+    }
+
+    @Transactional
+    public void deleteCategory(Integer quizId, Integer categoryId) {
+        Quiz quiz = quizRepository.findById(quizId)
+                .orElseThrow(() -> new ResourceNotFoundException("Quiz not found with ID: " + quizId));
+
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found with ID: " + categoryId));
+
+        QuizCategoryId quizCategoryId = new QuizCategoryId(quizId, categoryId);
+
+        QuizCategory quizCategory = quizCategoryRepository.findById(quizCategoryId)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not associated with the quiz"));
+
+        quizCategoryRepository.delete(quizCategory);
     }
 }

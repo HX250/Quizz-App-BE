@@ -1,7 +1,6 @@
 package main.java.com.example.devOpsDemo.repository;
 
 
-import main.java.com.example.devOpsDemo.dto.UserDTO;
 import main.java.com.example.devOpsDemo.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
