@@ -3,6 +3,7 @@ package main.java.com.example.devOpsDemo.controller;
 import main.java.com.example.devOpsDemo.dto.AssignCategoriesDTO;
 import main.java.com.example.devOpsDemo.dto.CreateQuizDTO;
 import main.java.com.example.devOpsDemo.dto.QuizDTO;
+import main.java.com.example.devOpsDemo.entity.Quiz;
 import main.java.com.example.devOpsDemo.exception.CustomException;
 import main.java.com.example.devOpsDemo.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,15 @@ public class QuizController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
         }
+    }
+
+    @PutMapping("/{quizId}")
+    public ResponseEntity<Quiz> updateQuiz(
+            @PathVariable Integer quizId,
+            @RequestBody Quiz updatedQuiz) {
+
+        Quiz quiz = quizService.updateQuiz(quizId, updatedQuiz);
+        return ResponseEntity.ok(quiz);
     }
 
 }

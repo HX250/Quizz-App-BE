@@ -117,10 +117,6 @@ public class QuizService {
         Quiz quiz = quizRepository.findById(quizId)
                 .orElseThrow(() -> new ResourceNotFoundException("Quiz not found with ID: " + quizId));
 
-        quizCategoryRepository.deleteAllByQuiz(quiz);
-
-        questionRepository.deleteAllByQuiz(quiz);
-
         quizRepository.delete(quiz);
     }
 
@@ -138,5 +134,19 @@ public class QuizService {
                 .orElseThrow(() -> new ResourceNotFoundException("Category not associated with the quiz"));
 
         quizCategoryRepository.delete(quizCategory);
+    }
+
+    public Quiz updateQuiz(Integer quizId, Quiz updatedQuiz) {
+        Quiz existingQuiz = quizRepository.findById(quizId)
+                .orElseThrow(() -> new ResourceNotFoundException("Quiz not found with ID: " + quizId));
+
+        if (updatedQuiz.getTitle() != null) {
+            existingQuiz.setTitle(updatedQuiz.getTitle());
+        }
+        if (updatedQuiz.getDescription() != null) {
+            existingQuiz.setDescription(updatedQuiz.getDescription());
+        }
+
+        return quizRepository.save(existingQuiz);
     }
 }

@@ -1,7 +1,6 @@
 USE QuizApp;
 
 DROP TABLE IF EXISTS quiz_categories;
-DROP TABLE IF EXISTS quiz_completions;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS categories;
