@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 
 @RestController
-@RequestMapping("/quiz")
+@RequestMapping("/api/quiz")
 public class QuizController {
     private final QuizService quizService;
 

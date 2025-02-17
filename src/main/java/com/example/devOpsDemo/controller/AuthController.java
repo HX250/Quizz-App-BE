@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 @Tag(name = "Users", description = "User management APIs")
 public class AuthController {
     private final AuthService authService;
@@ -23,13 +23,14 @@ public class AuthController {
         this.authService = authService;
     }
 
-    @Operation(summary = "Get all users", description = "Retrieves a list of all users")
+    @Operation(summary = "Registration", description = "Registers an user")
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
         authService.signup(request);
         return ResponseEntity.ok("{}");
     }
 
+    @Operation(summary = "Login", description = "Authenticate an user")
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginRequest request) {
         String token = authService.authenticate(request);
