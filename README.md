@@ -1,29 +1,27 @@
-# Quiz API Documentation
+# API Documentation for Quiz Management System
 
 ## Base URL
 ```
-http://localhost:8080/quiz
+https://quiz-app-fsfnbuf8dcgwaghk.canadacentral-01.azurewebsites.net
 ```
 
-## 1. Get Quiz by ID
-### Endpoint
-```
-GET /quiz/{id}
-```
-### Description
-Retrieves a quiz by its ID.
-### Path Parameter
-| Name  | Type  | Description  |
-|--------|------|-------------|
-| `id` | Integer | ID of the quiz to fetch |
+## **1. Quiz Management API**
 
-### Response Example (200 OK)
+### **1.1 Get Quiz by ID**
+- **Endpoint:** `GET /api/quiz/{id}`
+- **Description:** Retrieves a quiz by its unique ID.
+- **Path Parameters:**
+    - `id` (Integer): The unique ID of the quiz.
+- **Response:**
+    - **Status Code:** `200 OK`
+    - **Body:** `QuizDTO` object containing quiz details.
+- **Example Response:**
 ```json
 {
   "quizId": 1,
-  "title": "General Knowledge Quiz",
-  "description": "Test your general knowledge skills",
-  "createdAt": "2024-02-16T12:30:00",
+  "title": "Sample Quiz",
+  "description": "This is a sample quiz.",
+  "createdAt": "2025-02-17T10:00:00",
   "user": {
     "userId": 1,
     "username": "john_doe",
@@ -31,168 +29,139 @@ Retrieves a quiz by its ID.
   },
   "questions": [
     {
-      "questionId": 1,
-      "questionText": "Is Paris the capital of France?",
+      "questionText": "What is 2+2?",
       "isCorrect": true
     }
   ],
   "categories": [
     {
       "categoryId": 1,
-      "name": "General Knowledge",
-      "description": "Quizzes that test general knowledge"
+      "categoryName": "Mathematics"
     }
   ]
 }
 ```
 
-### Possible Errors
-| Status Code | Message |
-|------------|---------|
-| 404 Not Found | "Quiz not found" |
-
----
-
-## 2. Create a Quiz
-### Endpoint
-```
-POST /quiz
-```
-### Description
-Creates a new quiz.
-### Request Body
+### **1.2 Create a Quiz**
+- **Endpoint:** `POST /api/quiz`
+- **Description:** Creates a new quiz.
+- **Request Body:**
 ```json
 {
   "userId": 1,
-  "title": "Math Challenge",
-  "description": "Solve interesting math problems",
+  "title": "New Quiz",
+  "description": "Description of the new quiz",
   "questions": [
     {
-      "questionText": "Is 2 + 2 = 4?",
+      "questionText": "What is 3+3?",
       "isCorrect": true
     }
   ]
 }
 ```
+- **Response:**
+    - **Status Code:** `200 OK`
+    - **Body:** `"Quiz has been created"`
+    - **Error Responses:**
+        - `404 NOT FOUND`: If the user is not found.
+        - `401 UNAUTHORIZED`: If the user is not logged in.
+        - `500 INTERNAL SERVER ERROR`: For unexpected issues.
 
-### Response Example (200 OK)
-```
-"Quizz has been created"
-```
-
-### Possible Errors
-| Status Code | Message |
-|------------|---------|
-| 404 Not Found | "User not found" |
-| 401 Unauthorized | "Login is required, please" |
-
----
-
-## 3. Assign Categories to a Quiz
-### Endpoint
-```
-POST /quiz/assign-categories
-```
-### Description
-Assigns categories to a specific quiz.
-### Request Body
+### **1.3 Assign Categories to Quiz**
+- **Endpoint:** `POST /api/quiz/assign-categories`
+- **Description:** Assigns categories to a quiz.
+- **Request Body:**
 ```json
 {
   "quizId": 1,
   "categoryIds": [1, 2]
 }
 ```
-### Response Example (200 OK)
-```
-"Categories assigned successfully to the quiz."
-```
-### Possible Errors
-| Status Code | Message |
-|------------|---------|
-| 404 Not Found | "Quiz not found with ID: {quizId}" |
-| 404 Not Found | "Category not found with ID: {categoryId}" |
+- **Response:**
+    - **Status Code:** `200 OK`
+    - **Body:** `"Categories assigned successfully to the quiz."`
 
----
+### **1.4 Delete a Quiz**
+- **Endpoint:** `DELETE /api/quiz/{quizId}`
+- **Description:** Deletes a quiz by its unique ID.
+- **Path Parameters:**
+    - `quizId` (Integer): The unique ID of the quiz.
+- **Response:**
+    - **Status Code:** `200 OK`
+    - **Body:** `"Quiz deleted successfully."`
 
-## 4. Delete a Quiz
-### Endpoint
-```
-DELETE /quiz/{quizId}
-```
-### Description
-Deletes a quiz and all related categories and questions.
-### Path Parameter
-| Name  | Type  | Description  |
-|--------|------|-------------|
-| `quizId` | Integer | ID of the quiz to delete |
+### **1.5 Delete a Category from Quiz**
+- **Endpoint:** `DELETE /api/quiz/{quizId}/categories/{categoryId}`
+- **Description:** Removes a category from a quiz.
+- **Path Parameters:**
+    - `quizId` (Integer): The unique ID of the quiz.
+    - `categoryId` (Integer): The unique ID of the category.
+- **Response:**
+    - **Status Code:** `200 OK`
+    - **Body:** `"Quiz category deleted successfully."`
 
-### Response Example (200 OK)
-```
-"Quiz deleted successfully."
-```
-### Possible Errors
-| Status Code | Message |
-|------------|---------|
-| 404 Not Found | "Quiz not found with ID: {quizId}" |
-
----
-
-## 5. Remove a Category from a Quiz
-### Endpoint
-```
-DELETE /quiz/{quizId}/categories/{categoryId}
-```
-### Description
-Removes a category from a quiz.
-### Path Parameters
-| Name  | Type  | Description  |
-|--------|------|-------------|
-| `quizId` | Integer | ID of the quiz |
-| `categoryId` | Integer | ID of the category to remove |
-
-### Response Example (200 OK)
-```
-"Quiz category deleted successfully."
-```
-### Possible Errors
-| Status Code | Message |
-|------------|---------|
-| 404 Not Found | "Quiz not found with ID: {quizId}" |
-| 404 Not Found | "Category not found with ID: {categoryId}" |
-| 404 Not Found | "Category not associated with the quiz" |
-
----
-
-## 6. Update a Quiz
-### Endpoint
-```
-PUT /quiz/{quizId}
-```
-### Description
-Updates quiz details like title or description.
-### Path Parameter
-| Name  | Type  | Description  |
-|--------|------|-------------|
-| `quizId` | Integer | ID of the quiz to update |
-
-### Request Body Example
+### **1.6 Update a Quiz**
+- **Endpoint:** `PUT /api/quiz/{quizId}`
+- **Description:** Updates the title and description of an existing quiz.
+- **Path Parameters:**
+    - `quizId` (Integer): The unique ID of the quiz to be updated.
+- **Request Body:**
 ```json
 {
-  "title": "Updated Math Challenge",
+  "title": "Updated Quiz Title",
   "description": "Updated description for the quiz"
 }
 ```
+- **Response:**
+    - **Status Code:** `200 OK`
+    - **Body:** The updated `Quiz` object.
 
-### Response Example (200 OK)
+## **2. Authentication API**
+
+### **2.1 User Registration**
+- **Endpoint:** `POST /api/auth/register`
+- **Description:** Registers a new user.
+- **Request Body:**
 ```json
 {
-  "quizId": 1,
-  "title": "Updated Math Challenge",
-  "description": "Updated description for the quiz",
-  "createdAt": "2024-02-16T12:30:00"
+  "username": "john_doe",
+  "email": "john@example.com",
+  "password": "securepassword"
 }
 ```
-### Possible Errors
-| Status Code | Message |
-|------------|---------|
-| 404 Not Found | "Quiz not found with ID: {quizId}" |
+- **Response:**
+    - **Status Code:** `200 OK`
+    - **Body:** `{}`
+
+### **2.2 User Login**
+- **Endpoint:** `POST /api/auth/login`
+- **Description:** Authenticates an existing user.
+- **Request Body:**
+```json
+{
+  "email": "john@example.com",
+  "password": "securepassword"
+}
+```
+- **Response:**
+    - **Status Code:** `200 OK`
+    - **Body:**
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+## **3. Test API**
+
+### **3.1 Connection Test**
+- **Endpoint:** `GET /api/test`
+- **Description:** Tests the API connection.
+- **Response:**
+    - **Status Code:** `200 OK`
+    - **Body:** `"Connection works"`
+
+## **4. Error Handling**
+- **404 NOT FOUND:** If the requested resource (quiz or category) is not found.
+- **401 UNAUTHORIZED:** If the user is not logged in or authorized.
+- **500 INTERNAL SERVER ERROR:** For unexpected errors or internal issues.
