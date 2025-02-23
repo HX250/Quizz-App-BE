@@ -9,7 +9,6 @@ public class CreateQuizDTO {
     private LocalDateTime createdAt;
     private Integer userId;
     private List<QuestionDTO> questions;
-    private List<Integer> categoryId;
 
 
 
@@ -33,9 +32,6 @@ public class CreateQuizDTO {
         this.questions = questions;
     }
 
-    public void setCategoryId(List<Integer> categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public String getTitle() {
         return title;
@@ -57,7 +53,4 @@ public class CreateQuizDTO {
         return questions;
     }
 
-    public List<Integer> getCategoryId() {
-        return categoryId;
-    }
 }

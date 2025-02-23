@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
 
 
 @RestController
@@ -24,9 +25,20 @@ public class QuizController {
         this.quizService = quizService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<Quiz>> getAllQuizzes() {
+        List<Quiz> quizzes = quizService.getAllQuizzes();
+        return ResponseEntity.ok(quizzes);
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<QuizDTO> getQuizById(@PathVariable Integer id) {
-        return ResponseEntity.ok(quizService.getQuizById(id));
+    public ResponseEntity<?> getQuizById(@PathVariable Integer id) {
+        try {
+            QuizDTO quiz = quizService.getQuizById(id);
+            return ResponseEntity.ok(quiz);
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PostMapping

@@ -1,5 +1,6 @@
 package main.java.com.example.devOpsDemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
@@ -12,6 +13,7 @@ public class QuizCategory {
     @ManyToOne
     @MapsId("quizId")
     @JoinColumn(name = "quiz_id")
+    @JsonIgnore
     private Quiz quiz;
 
     @ManyToOne

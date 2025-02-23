@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class QuizService {
-
     @Autowired
     private QuizRepository quizRepository;
 
@@ -29,6 +28,10 @@ public class QuizService {
     private QuizCategoryRepository quizCategoryRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+
+    public List<Quiz> getAllQuizzes() {
+        return quizRepository.findAll();
+    }
 
     public QuizDTO getQuizById(Integer id) {
         Quiz quiz = quizRepository.findByQuizId(id)
