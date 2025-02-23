@@ -10,10 +10,8 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer questionId;
 
-    @ManyToOne
-    @JoinColumn(name = "quiz_id", nullable = false)
-    @JsonIgnore
-    private Quiz quiz;
+    @Column(name = "quiz_id", nullable = false)
+    private Integer quizId;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String questionText;
@@ -25,9 +23,6 @@ public class Question {
         return questionId;
     }
 
-    public Quiz getQuiz() {
-        return quiz;
-    }
 
     public String getQuestionText() {
         return questionText;
@@ -37,9 +32,8 @@ public class Question {
         return isCorrect;
     }
 
-
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
+    public void setQuizId(Integer quizId) {
+        this.quizId = quizId;
     }
 
     public void setQuestionText(String questionText) {

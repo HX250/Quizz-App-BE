@@ -81,7 +81,7 @@ public class QuizService {
             Question question = new Question();
             question.setQuestionText(qDTO.getQuestionText());
             question.setCorrect(qDTO.getIsCorrect());
-            question.setQuiz(finalQuiz);
+            question.setQuizId(finalQuiz.getQuizId());
             return question;
         }).collect(Collectors.toList());
 
