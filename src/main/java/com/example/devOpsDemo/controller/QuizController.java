@@ -93,12 +93,16 @@ public class QuizController {
     }
 
     @PutMapping("/{quizId}")
-    public ResponseEntity<Quiz> updateQuiz(
+    public ResponseEntity<String> updateQuiz(
             @PathVariable Integer quizId,
             @RequestBody Quiz updatedQuiz) {
 
-        Quiz quiz = quizService.updateQuiz(quizId, updatedQuiz);
-        return ResponseEntity.ok(quiz);
+      quizService.updateQuiz(quizId, updatedQuiz);
+        try{
+            return ResponseEntity.ok("Quiz has been updated");
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
 }
