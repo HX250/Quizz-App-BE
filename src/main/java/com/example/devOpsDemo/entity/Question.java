@@ -11,7 +11,7 @@ public class Question {
     private Integer questionId;
 
     @Column(name = "quiz_id", nullable = false)
-    private Integer quizId;
+    private Integer quiz;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String questionText;
@@ -33,7 +33,7 @@ public class Question {
     }
 
     public void setQuizId(Integer quizId) {
-        this.quizId = quizId;
+        this.quiz = quizId;
     }
 
     public void setQuestionText(String questionText) {
